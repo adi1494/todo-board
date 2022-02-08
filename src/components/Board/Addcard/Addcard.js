@@ -1,49 +1,46 @@
 import React, { useState } from 'react';
 import { VscAdd, VscChromeClose } from 'react-icons/vsc';
 
-import './Addboard.css'
+import './Addcard.css'
 
-const Addboard = (props) => {
-  const [showAddboard, setShowAddboard] = useState(false)
-  const [inputText, setInputText] = useState('')
+const Addcard = (props) => {
+  const [showAddcardEdit, setShowAddcardEdit] = useState(false);
+  const [inputText, setInputText] = useState('');
   return (
-    <div className='addboard'>
+    <div className='addcard'>
       {
-        showAddboard ?
+        showAddcardEdit ?
           <form
-            className='addboard-edit'
+            className='addcard-edit'
             onSubmit={(e) => {
               e.preventDefault();
-              if (props.onSubmit) {
-                props.onSubmit(inputText);
+              if (props.addCard) {
+                props.addCard(inputText);
               }
               setInputText('')
-              setShowAddboard(false);
+              setShowAddcardEdit(false);
             }}
           >
             <input
               autoFocus
               type="text"
-              placeholder='Enter Board Title'
+              placeholder='Enter Card Title'
               value={inputText}
               onChange={(e) => {
                 setInputText(e.target.value);
               }}
             />
-            <div className="addboard-edit-footer">
-              <button 
+            <div className="addcard-edit-footer">
+              <button
                 type='submit'
                 className='icon-btn'
-                style={{
-                  color: 'black',
-                }}
               >
                 <VscAdd />
               </button>
-              <button 
+              <button
                 className='icon-btn'
                 onClick={() => {
-                  setShowAddboard(false)
+                  setShowAddcardEdit(false)
                 }}
               >
                 <VscChromeClose />
@@ -51,16 +48,12 @@ const Addboard = (props) => {
             </div>
           </form>
           :
-          <div className='addboard-plus'>
+          <div className='addcard-plus'>
             <button
               onClick={() => {
-                setShowAddboard(true);
+                setShowAddcardEdit(true);
               }}
               className='icon-btn'
-              // style={{
-              //   height: '60px',
-              //   width: '60px',
-              // }}
             >
               <VscAdd />
             </button>
@@ -70,4 +63,4 @@ const Addboard = (props) => {
   );
 };
 
-export default Addboard;
+export default Addcard;

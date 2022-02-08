@@ -1,9 +1,8 @@
 .board {
-    min-width: 300px;
-    max-width: 300px;
-    min-height: 70vh;
-    background-color: #eaebee;
-    border-radius: 4px;
+    min-width: 270px;
+    max-width: 270px;
+    background-color: var(--board-bg);
+    border-radius: 3px;
     display: flex;
     flex-direction: column;
     padding: 5px;
@@ -12,79 +11,61 @@
 .board-heading{
     display: flex;
     align-items: center;
-    padding: 0 10px;
-}
-
-/* .board-heading > button {
-    cursor: pointer;
-    border: none;
-    width: 30px;
-    height: 30px;
-    color: #686868;
+    /* margin: 5px; */
+    /* padding: 5px; */
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    justify-content: space-between;
     background-color: transparent;
-    box-shadow: rgba(60, 64, 67, 0.4) 0px 1px 2px 0px;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    transition: 100ms;
 }
 
-.board-heading > button:hover {
-    transform: scale(1.2);
-} */
+.board-heading:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.board-heading-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.board-heading .hidden-btn {
+    opacity: 0;
+}
+
+.board-heading:hover .hidden-btn {
+    opacity: 1;
+}
 
 .board-title {
     flex: 1;
     display: flex;
+    gap: 10px;
     align-items: center;
+    color: var(--text-grey);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-.board-title span {
-    color: grey;
+.board-title > div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 60%;
 }
 
 .cards-container {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    border-radius: 4px;
+    /* gap: 5px; */
+    border-radius: 3px;
 }
 
 .drag-over {
     background-color: #dcdcdc;
 }
-
-.button-13 {
-    background-color: #fff;
-    border: 1px solid #d5d9d9;
-    border-radius: 4px;
-    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-    box-sizing: border-box;
-    color: #0f1111;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Amazon Ember",sans-serif;
-    font-size: 13px;
-    line-height: 29px;
-    padding: 0 10px 0 11px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: middle;
-    /* width: 100px; */
-  }
-  
-  .button-13:hover {
-    background-color: #f7fafa;
-  }
-  
-  .button-13:focus {
-    border-color: #008296;
-    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-    outline: 0;
-  }

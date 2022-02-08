@@ -4,94 +4,67 @@
 }
 
 .card {
+    margin-bottom: 5px;
     width: 100%;
-    background-color: #ffffff;
     padding: 10px;
-    border-radius: 4px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: #ffffff;
+    border-radius: 3px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px;
+    /* cursor: default; */
+}
+
+.card:hover {
+    background-color: #efefef;
 }
 
 .card > input {
     outline: none;
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: #f4f5f7;
     padding: 10px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px inset;
 }
 
-.card-buttons {
+.card-footer {
+    margin-top: 10px;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
     gap: 10px;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.card-footer-left {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
 
+.card-footer-right {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
 
-/* .card-buttons button {
-    cursor: pointer;
-    border: none;
-    width: 30px;
-    height: 30px;
-    color: #686868;
-    background-color: transparent;
-    box-shadow: rgba(60, 64, 67, 0.4) 0px 1px 2px 0px;
-    border-radius: 50%;
-    display: inline-flex;
+.card-icon {
+    /* background-color: red; */
+    width: 18px;
+    height: 18px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    transition: 100ms;
+    border-radius: 3px;
 }
 
-.card-buttons button:hover {
-    transform: scale(1.2);
-}
-
-/* .card-buttons button:focus {
-    background-color: rgba(0,0,0,0.3);
-} */
-
-.card-buttons svg {
-    height: 16px;
-}
-
-.completed {
-    text-decoration: line-through;
-    color: rgb(100, 100, 100);
-}
-
-.button-13 {
-  background-color: #fff;
-  border: 1px solid #d5d9d9;
-  border-radius: 4px;
-  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  box-sizing: border-box;
-  color: #0f1111;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Amazon Ember",sans-serif;
-  font-size: 13px;
-  line-height: 29px;
-  padding: 0 10px 0 11px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  /* width: 100px; */
-}
-
-.button-13:hover {
-  background-color: #f7fafa;
-}
-
-.button-13:focus {
-  border-color: #008296;
-  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  outline: 0;
+.card-type svg {
+    /* color: white; */
+    width: 12px;
+    height: 12px;
+    opacity: .8;
 }

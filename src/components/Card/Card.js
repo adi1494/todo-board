@@ -1,91 +1,133 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ParsedQuery from 'query-string';
+
+import CardModal from './CardModal/CardModal';
+
+import { BsBookmarkFill, BsCheckSquareFill, BsChevronCompactDown, BsChevronCompactUp, BsCircleFill, BsDashLg } from "react-icons/bs";
 import './Card.css'
-// import {Check, Trash} from 'react-feather';
+import { Draggable } from 'react-beautiful-dnd';
 
 const Card = (props) => {
-	const [showEdit, setShowEdit] = useState(false);
-	const [inputText, setInputText] = useState(props.card?.text || '')
+	const { search } = useLocation()
+  const qs = ParsedQuery.parse(search)
+  // console.log(qs.cardId===props.card?.id)
+	
+	const [showModal, setShowModal] = useState(qs.cardId===props.card?.id);
+	
+	let navigate = useNavigate()
+  const routeChange = (remainingPath) => {
+		let path = `/home${remainingPath}`;
+    navigate(path);
+    // console.log(search)
+  }
+
+	const getItemStyle = (isDragging, draggableStyle) => ({
+		pointerEvents: "auto",
+		cursor: isDragging ? '' : 'pointer',
+		...draggableStyle
+	});
+	
 	return (
-		<div
-			className='card-container'
-			draggable
-			onDragStart={() => {
-				props.handleDragStart(props.boardId, props.card?.id)
-			}}
-			onDragEnd={() => {
-				props.handleDragEnd(props.boardId, props.card?.id)
-			}}
-		>
-			{/* {console.log(props)} */}
-			{
-				showEdit ?
-					<form 
-						className="card"
-						onSubmit={(event) => {
-							event.preventDefault();
-							if (props.editCard) {
-								props.editCard(props.boardId, props.card?.id, inputText);
-							}
-							setShowEdit(false);
+		<div>
+			<div className='card-container'>
+				{
+					showModal &&
+					<CardModal
+						onClose={() => {
+							setShowModal(false)
+							routeChange('')
 						}}
-					>
-						<input
-							autoFocus
-							type="text"
-							value={inputText}
-							onChange={(e) => setInputText(e.target.value)}
-							placeholder={props.placeholder || 'Enter Card Text'} />
-						<div className='card-buttons'>
-							<button
-								className='button-13'
-								type='submit'
-							>
-								Add
-							</button>
-							<button
-								className='button-13'
-								onClick={() => {
-									setShowEdit(false)
-								}}
-							>
-								Cancel
-							</button>
+
+						card={props.card}
+						boardId={props.boardId}
+						status={props.boardTitle}
+
+						editCardTitle={props.editCardTitle}
+						updateCardDesc={props.updateCardDesc}
+						deleteCard={props.deleteCard}
+					/>
+				}
+				<Draggable
+					draggableId={props.card?.id}
+					index={props.index}
+				>
+					{(provided, snapshot) => (
+						<div
+							className="card"
+							draggable
+							ref={provided.innerRef}
+							{...provided.draggableProps}
+							{...provided.dragHandleProps}
+							onClick={() => {
+                routeChange(`?cardId=${props.card?.id}`)
+								setShowModal(true)
+							}}
+							style={getItemStyle(
+								snapshot.isDragging,
+								provided.draggableProps.style
+							)}
+						>
+							<div>{props.card?.title || '----'}</div>
+							<div className="card-footer">
+								<div className="card-footer-left">
+									<div className="card-type">
+										{
+											props.card.type === 'story' ?
+												<div className="card-icon">
+													<BsBookmarkFill color='green' />
+												</div>
+												:
+												props.card?.type === 'task' ?
+													<div className="card-icon">
+														<BsCheckSquareFill color='blue' />
+													</div>
+													:
+													props.card?.type === 'bug' ?
+														<div className="card-icon">
+															<BsCircleFill color='red' />
+														</div>
+														:
+														<></>
+										}
+									</div>
+									<span className="card-number">
+										500
+									</span>
+								</div>
+								<div className="card-footer-right">
+									<div className="card-priority">
+										{
+											props.card.priority === 'low' ?
+												<div className="card-icon">
+													<BsChevronCompactDown color='green' />
+												</div>
+												:
+												props.card?.priority === 'medium' ?
+													<div className="card-icon">
+														<BsDashLg color='orange' />
+													</div>
+													:
+													props.card?.priority === 'high' ?
+														<div className="card-icon">
+															<BsChevronCompactUp color='red' />
+														</div>
+														:
+														<></>
+										}
+									</div>
+									<div
+										className='user-icon'
+										style={{ backgroundColor: `${props.card?.assignee.color}` }}
+									>
+										{props.card?.assignee.fname[0] + props.card?.assignee.lname[0]}
+									</div>
+								</div>
+							</div>
 						</div>
-					</form>
-					:
-					<div className="card">
-						<div className={`card-text ${props.card?.completed ? '' : 'completed'}`}>{props.card?.text}</div>
-						<div className="card-buttons">
-							<button
-								className='button-13'
-								onClick={() => {
-									setShowEdit(true)
-									setInputText(props.card?.text)
-								}}
-							>
-								Edit
-							</button>
-							<button
-								className='button-13'
-								onClick={() => {
-									props.checkTodo(props.card?.id, props.boardId)
-								}}
-							>
-								{props.card?.completed ? 'Check' : 'Uncheck'}
-							</button>
-							<button
-								className='button-13'
-								onClick={() => {
-									props.removeCard(props.card?.id, props.boardId)
-									// console.log(props)
-								}}
-							>
-								{/* <Trash /> */}
-								Delete Card
-							</button>
-						</div>
-					</div>
-			}
+					)}
+				</Draggable>
+			</div>
 		</div>
 	)
 };

@@ -1,0 +1,31 @@
+.details-item {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.details-left {
+    flex: 1.5;
+    color: var(--text-grey);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.details-mid {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-right {
+    flex: 3;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+    text-transform: capitalize;
+}
