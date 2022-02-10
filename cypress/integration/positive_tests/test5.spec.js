@@ -1,3 +1,5 @@
+// NOTE: Test doesnt work anymore (only works with react-beautiful-dnd)
+
 describe('test 5', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/home');

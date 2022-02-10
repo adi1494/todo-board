@@ -5,13 +5,19 @@ import Addcard from './Addcard/Addcard';
 
 import './Board.css'
 import { VscTrash } from 'react-icons/vsc';
-import { Droppable } from 'react-beautiful-dnd';
+// import { Droppable } from 'react-beautiful-dnd';
 
 
 const Board = (props) => {
   return (
     <div
       className='board'
+      onDragOver={() => {
+        props.handleDragOver(props.board?.id)
+      }}
+      onDragLeave={() => {
+        props.handleDragLeave(props.board?.id)
+      }}
     >
       {/* {console.log(props)} */}
       <div className="board-heading">
@@ -43,39 +49,47 @@ const Board = (props) => {
           </button> */}
         </div>
       </div>
-      <Droppable
+      {/* <Droppable
         droppableId={props.board?.id}
       >
         {
-          (provided) => (
-            <div
-              className='cards-container'
-              ref={(provided.innerRef)}
-              {...provided.droppableProps}
-            >
-              {
-                props.board?.cards.map((card, index) => (
-                  <Card
-                    index={index}
-                    key={card.id}
-                    card={card}
-                    boardId={props.board?.id}
-                    boardTitle={props.board?.title}
+          (provided) => ( */}
+      <div
+        className='cards-container'
+      // ref={(provided.innerRef)}
+      // {...provided.droppableProps}
+      >
+        {
+          props.board?.cards.map((card, index) => (
+            <Card
+              index={index}
+              key={card.id}
+              card={card}
+              boardId={props.board?.id}
+              boardTitles={props.boardTitles}
 
-                    editCardTitle={props.editCardTitle}
-                    updateCardDesc={props.updateCardDesc}
-                    deleteCard={props.deleteCard}
-                  />
-                ))
-              }
-              {provided.placeholder}
-              <Addcard
-                addCard={(value) => props.addCard(props.board?.id, value)}
-              ></Addcard>
-            </div>
-          )
+              editCardTitle={props.editCardTitle}
+              updateCardDesc={props.updateCardDesc}
+              deleteCard={props.deleteCard}
+              changeStatus={props.changeStatus}
+
+              addSubtask={props.addSubtask}
+              updateSubtask={props.updateSubtask}
+              deleteSubtask={props.deleteSubtask}
+
+              handleDragStart={props.handleDragStart}
+              handleDragEnd={props.handleDragEnd}
+            />
+          ))
         }
-      </Droppable>
+        {/* {provided.placeholder} */}
+        <Addcard
+          addCard={(value) => props.addCard(props.board?.id, value)}
+        ></Addcard>
+      </div>
+      {/* )
+        }
+      </Droppable> */}
     </div>
   )
 }

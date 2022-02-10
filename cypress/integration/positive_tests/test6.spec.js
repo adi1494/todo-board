@@ -1,53 +1,49 @@
-// these tests do not work with react-beautiful-dnd
-
-describe('test 6', () => {
-  beforeEach(() => {
-    cy.viewport(1600, 900)
-    cy.visit('http://localhost:3000/home')
-  })
+describe("Drag and Drop", () => {
   
-  it('dnd from 4tw', () => {
-    cy
-      .get('#root > div > div > div.app-container > div > div:nth-child(3) > div.cards-container > div:nth-child(1)')
-      .drag('#root > div > div > div.app-container > div > div:nth-child(2)')
-      .then((success) => {
-        assert.isTrue(success)
-      })
-  })
-
-  it('move from 4tw', () => {
-    cy
-      .get('#root > div > div > div.app-container > div > div:nth-child(3) > div.cards-container > div:nth-child(1)')
-      .move({ deltaX: 310, deltaY: 10 })
-      .then((success) => {
-        assert.isTrue(success)
-      })
-  })
-
-  it('dispatch event', () => {
-    const draggable = Cypress.$('#root > div > div > div.app-container > div > div:nth-child(3) > div.cards-container > div:nth-child(1)')  // Pick up this
-    const droppable = Cypress.$('#root > div > div > div.app-container > div > div:nth-child(2)')  // Drop over this
-
-    const coords = droppable.getBoundingClientRect()
-    draggable.dispatchEvent(new MouseEvent('mousedown'));
-    draggable.dispatchEvent(new MouseEvent('mousemove', {clientX: 10, clientY: 0}));
-    draggable.dispatchEvent(new MouseEvent('mousemove', {
-      clientX: coords.x+10,   
-      clientY: coords.y+10  // A few extra pixels to get the ordering right
-    }));
-    draggable.dispatchEvent(new MouseEvent('mouseup'));
-  
+  before(() => {
+    cy.visit('https://kitchen.applitools.com/ingredients/drag-and-drop');
   });
-
-  it('trigger', () => {
-    cy.get("#root > div > div > div.app-container > div > div:nth-child(3) > div.cards-container > div:nth-child(1)").trigger("mousedown", {
-      which: 1
+  
+  it('should drag fried chicken to the order', () => {
+    const dataTransfer = new DataTransfer();
+    
+    cy.get('#menu-fried-chicken').trigger('dragstart', {
+      dataTransfer
     });
-    cy.get("#root > div > div > div.app-container > div > div:nth-child(2)").trigger("mousemove")
-      .get("#root > div > div > div.app-container > div > div:nth-child(2)")
-      .trigger("mousemove")
-      .trigger("mouseup")
-    cy.get('#root > div > div > div.app-container > div > div:nth-child(2)')
-      .should('contain', 'blocked 1')
+    
+    cy.get('#plate').trigger('drop', {
+      dataTransfer
+    });
   });
-})
+  
+  it('should drag ice cream to the order', () => {
+    cy.get('#menu-ice-cream').drag('#plate-items');
+  });
+  
+});
+
+// describe('test 6', () => {
+//   beforeEach(() => {
+//     cy.viewport(1600, 900)
+//     cy.visit('http://localhost:3000/home')
+//   })
+
+//   const source = '#container > div.home > div.home-boards > div > div:nth-child(3) > div.cards-container > div:nth-child(1) > div > div'
+//   const target = '#container > div.home > div.home-boards > div > div:nth-child(4)'
+
+//   it('dnd with datatransfer', () => {
+//     const dataTransfer = new DataTransfer();
+    
+//     cy.get(source).trigger('dragstart', {
+//       dataTransfer
+//     });
+    
+//     cy.get(target).trigger('drop', {
+//       dataTransfer
+//     });
+//   });
+  
+//   it('dnd with 4tw plugin', () => {
+//     cy.get(source).drag(target);
+//   });
+// })

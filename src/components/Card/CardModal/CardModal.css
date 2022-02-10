@@ -1,4 +1,4 @@
-.cardinfo {
+.cardmodal {
     width: 90vw;
     height: 90vh;
     max-width: 1280px;
@@ -7,21 +7,21 @@
     flex-direction: column;
 }
 
-.cardinfo-button-container {
+.cardmodal-button-container {
     display: flex;
     gap: 10px;
 }
 
-.cardinfo-header {
+.cardmodal-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 20px;
     /* background-color: var(--board-bg); */
-    border-radius: 3px;
+    
 }
 
-.cardinfo-header-issue {
+.cardmodal-header-issue {
     display: flex;
     align-items: center;
     padding: 5px;
@@ -29,17 +29,17 @@
 }
 
 
-.cardinfo-cols {
+.cardmodal-cols {
     display: flex;
     overflow: auto;
 }
 
-.cardinfo-tall {
+.cardmodal-tall {
     width: 30px;
     /* background-color: yellowgreen; */
 }
 
-.cardinfo-main-wrapper {
+.cardmodal-main-wrapper {
     flex: 2;
     overflow-y: auto;
     display: flex;
@@ -47,19 +47,15 @@
 }
 
 
-.cardinfo-main {
+.cardmodal-main {
     flex: 1;
 }
 
-.cardinfo-main > * {
-    padding: 0 5px;
-}
-
-.cardinfo-main-title {
+.cardmodal-main-title {
     font-size: 24px;
-    font-weight: 500;
+    font-weight: bold;
     color: var(--text-grey);
-    border-radius: 3px;
+    
     padding: 5px;
     display: flex;
     flex-direction: row;
@@ -68,21 +64,21 @@
     gap: 10px;
 }
 
-.cardinfo-main-title .hidden-btn {
+.cardmodal-main-title .hidden-btn {
     opacity: 0;
 }
 
-.cardinfo-main-title:hover .hidden-btn {
+.cardmodal-main-title:hover .hidden-btn {
     opacity: 1;
 }
 
-.cardinfo-main-title:hover {
+.cardmodal-main-title:hover {
     background-color: var(--board-bg) !important;
 }
 
-.cardinfo-main-title-edit {
+.cardmodal-main-title-edit {
     background-color: var(--board-bg);
-    border-radius: 3px;
+    
     padding: 5px;
     display: flex;
     flex-direction: row;
@@ -90,7 +86,7 @@
     justify-content: space-between;
 }
 
-.cardinfo-main-title-edit > input {
+.cardmodal-main-title-edit > input {
     outline: none;
     border: none;
     line-height: 30px;
@@ -100,106 +96,203 @@
     width: 100%;
     color: var(--text-grey);
     background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
+    
 }
 
-.cardinfo-main-desc {
+.cardmodal-main-desc {
     margin-top: 10px;
+    border: 1px solid var(--board-bg);
 }
 
-/* .cardinfo-main-desc:nth-child(2){
-    text-align: justify;
-} */
+.cardmodal-main-desc > * {
+    padding: 5px;
+}
 
-.cardinfo-main-desc-title {
+.cardmodal-main-desc-heading {
     font-weight: 500;
-    padding: 10px 0;
     color: var(--text-grey);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.cardinfo-side-wrapper {
+.cardmodal-main-desc-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cardmodal-main-subtask{
+    margin-top: 10px;
+    border: 1px solid var(--board-bg);
+}
+
+.cardmodal-main-subtask > * {
+    padding: 5px;
+}
+
+.subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cardmodal-main-subtask-heading {
+    font-weight: 500;
+    color: var(--text-grey);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardmodal-subtask-edit {
+    display: flex;
+    gap: 5px;
+}
+
+.cardmodal-subtask-edit > input {
+    border: none;
+    outline: none;
+    background-color: var(--board-bg);
+    padding: 0 5px;
+}
+
+.cardmodal-subtask-edit-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.cardmodal-side-wrapper {
     flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: row;
 }
 
-.cardinfo-side {
+.cardmodal-side {
     flex: 1;
-    padding: 10px 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* .cardinfo-status {
+/* .cardmodal-status {
     background-color: var(--board-bg);
 } */
 
-.cardinfo-status button {
+.cardmodal-status > button {
+    cursor: pointer;
     border: none;
     padding: 10px;
+    border: 1px solid lightgrey;
     background-color: var(--board-bg);
     color: var(--text-grey);
-    border-radius: 3px;
+    
     font-size: 14px;
     font-weight: bold;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px
+    gap: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.cardinfo-status div {
-    max-width: 200px;
+.cardmodal-status > button:hover {
+    background-color: #c0c0c2;
+}
+
+.cardmodal-status-title {
+    max-width: 150px !important;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.cardinfo-status button:hover {
-    background-color: #c0c0c2;
-}
-
-
-.cardinfo-status svg {
+.cardmodal-status svg {
     width: 14px;
     height: 14px;
 }
 
-.cardinfo-side-details {
+.cardmodal-status-dropdown{
+    /* border: 1px solid red; */
+    /* position: absolute; */
+    position: absolute;
+    width: 100%;
+    margin-top: 2px;
+    padding: 2px;
+    max-width: 200px;
+    background-color: white;
     border: 1px solid lightgrey;
-    border-radius: 3px;
+    
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.cardmodal-status-dropdown > div {
+    /* border: 1px solid blue; */
+    padding: 5px;
+    padding-left: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+
+.cardmodal-status-dropdown > div:hover{
+    background-color: var(--board-bg);
+}
+
+.cardmodal-side-details {
+    border: 1px solid lightgrey;
+    
     display: flex;
     flex-direction: column;
 }
 
-.cardinfo-side-details-heading {
+.cardmodal-side-details-heading {
+    cursor: pointer;
     border-bottom: 1px solid lightgrey;
     padding: 10px;
     font-size: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
-.cardinfo-side-details-heading > div {
+.cardmodal-side-details-heading > div {
     color: var(--text-grey);
     font-weight: bold;
 }
 
-.cardinfo-side-details-heading svg {
+.cardmodal-side-details-heading svg {
     width: 14px;
     height: 14px;
 }
 
-.cardinfo-side-details-heading:hover{
+.cardmodal-side-details-heading:hover{
     background-color: var(--board-bg);
 }
 
-.cardinfo-side-details-items{
+.cardmodal-side-details-items{
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 10px;
+    margin-top: 10px;
+}
+
+textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: var(--board-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
 }

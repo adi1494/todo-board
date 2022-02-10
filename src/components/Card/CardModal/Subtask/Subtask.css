@@ -1,0 +1,57 @@
+.subtask {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #ffffff;
+    border: 1px solid var(--board-bg);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px;
+    gap: 10px;
+}
+
+.subtask:hover {
+    box-shadow: rgba(60, 64, 67, 0.8) 0px 1px 3px 0px;
+}
+
+.subtask:hover .subtask-btn{
+    opacity: 1;
+}
+
+
+
+.subtask-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.subtask input {
+    border: none;
+    outline: none;
+    background-color: var(--board-bg);
+    padding: 7px;
+    width: 100%;
+}
+
+.subtask textarea {
+    padding: 7px;
+}
+
+.subtask-title {
+    color: var(--text-grey);
+    font-weight: bold;
+}
+
+.subtask-heading-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.subtask-btn {
+    height: 25px;
+    width: 25px;
+    opacity: 0;
+}

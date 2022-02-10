@@ -5,204 +5,25 @@ import Board from '../Board/Board';
 import Addboard from '../Addboard/Addboard';
 
 import './Home.css';
-import { DragDropContext } from 'react-beautiful-dnd';
+// import { DragDropContext } from 'react-beautiful-dnd';
+
+import { userData, boardData } from './data'
 
 
 function Home() {
-  const [users, setUsers] = useState([
-    {
-      id: uuid(),
-      fname: 'Aditya',
-      lname: 'Verma',
-      color: 'purple'
-    },
-    {
-      id: uuid(),
-      fname: 'Aditya',
-      lname: 'Kumar',
-      color: 'blue'
-    },
-    {
-      id: uuid(),
-      fname: 'Aditya',
-      lname: 'Joshi',
-      color: 'orange'
-    },
-    {
-      id: uuid(),
-      fname: 'Shaswat',
-      lname: 'Shrivastava',
-      color: 'green'
-    },
-  ])
+  const [users, setUsers] = useState(userData);
 
-  const [boards, setBoards] = useState([
+  const [boards, setBoards] = useState(boardData);
+
+  // const titles = boards.map(board => board.title)
+  const titles = boards.map((board) => (
     {
-      id: uuid(),
-      title: 'Todo',
-      hover: false,
-      cards: [
-        {
-          id: uuid(),
-          title: 'todo 1',
-          desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque soluta nemo quidem illo! Temporibus voluptate nobis ea consectetur vero, sed omnis vitae est, ex dolor, dolore nisi doloribus numquam expedita adipisci ipsa consequatur ad excepturi aliquid saepe error velit maiores explicabo?',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'high',
-        },
-        {
-          id: uuid(),
-          title: 'todo 2',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'bug',
-          priority: 'high',
-        },
-      ]
-    },
-    {
-      id: uuid(),
-      title: 'WIP',
-      hover: false,
-      cards: [
-        {
-          id: uuid(),
-          title: 'wip 1',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'medium',
-        },
-        {
-          id: uuid(),
-          title: 'wip 2',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'bug',
-          priority: 'medium',
-        },
-        {
-          id: uuid(),
-          title: 'wip 3',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'medium',
-        },
-        {
-          id: uuid(),
-          title: 'wip 4',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'bug',
-          priority: 'medium',
-        },
-      ]
-    },
-    {
-      id: uuid(),
-      title: 'Blocked',
-      hover: false,
-      cards: [
-        {
-          id: uuid(),
-          title: 'blocked 1',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'medium',
-        },
-        {
-          id: uuid(),
-          title: 'blocked 2',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'task',
-          priority: 'medium',
-        },
-        {
-          id: uuid(),
-          title: 'blocked 3',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'medium',
-        },
-      ]
-    },
-    {
-      id: uuid(),
-      title: 'Testing',
-      hover: false,
-      cards: [
-        {
-          id: uuid(),
-          title: 'testing 1',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'low',
-        },
-        {
-          id: uuid(),
-          title: '',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'task',
-          priority: 'low',
-        },
-      ]
-    },
-    {
-      id: uuid(),
-      title: 'Released',
-      hover: false,
-      cards: [
-        {
-          id: uuid(),
-          title: 'released 1',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'story',
-          priority: 'low',
-        },
-        {
-          id: uuid(),
-          title: 'released 2',
-          desc: '',
-          completed: 'false',
-          assignee: users[0],
-          reporter: users[1],
-          type: 'task',
-          priority: 'low',
-        },
-      ]
-    },
-  ])
+      id: board.id,
+      title: board.title,
+    }
+  ))
+  // console.log(titles)
+  const [boardTitles, setBoardTitles] = useState(titles)
 
   useEffect(() => {
     const localData = localStorage.getItem('boards');
@@ -215,33 +36,6 @@ function Home() {
     localStorage.setItem('boards', JSON.stringify(boards));
   }, [boards])
 
-  const onDragEnd = (result) => {
-    // console.log(result);
-    const { source, destination } = result;
-
-    if (!destination) return;
-
-    if (source.droppableId === destination.droppableId) {
-      if (source.index === destination.index) return;
-      const tempBoards = [...boards];
-      const bidx = boards.findIndex(item => item.id === source.droppableId);
-
-      const tempCard = boards[bidx].cards[source.index];
-      tempBoards[bidx].cards.splice(source.index, 1);
-      tempBoards[bidx].cards.splice(destination.index, 0, tempCard);
-      setBoards(tempBoards);
-    } else {
-      const tempBoards = [...boards];
-      const sbidx = boards.findIndex(item => item.id === source.droppableId);
-      const dbidx = boards.findIndex(item => item.id === destination.droppableId);
-
-      const tempCard = boards[sbidx].cards[source.index];
-      tempBoards[sbidx].cards.splice(source.index, 1);
-      tempBoards[dbidx].cards.splice(destination.index, 0, tempCard);
-      setBoards(tempBoards);
-    }
-  }
-
   const addCard = (bid, title) => {
     const card = {
       id: uuid(),
@@ -252,6 +46,9 @@ function Home() {
       reporter: users[2],
       type: 'task',
       priority: 'low',
+      subtasks: [
+
+      ],
     };
     const index = boards.findIndex(board => board.id === bid);
     if (index < 0) return;
@@ -294,14 +91,74 @@ function Home() {
     setBoards(tempBoards);
   }
 
+  const changeStatus = (tbid, cid, bid) => {
+    let bidx = boards.findIndex(board => board.id === bid);
+    let cidx = boards[bidx].cards.findIndex(card => card.id === cid);
+
+    let tbidx = boards.findIndex(board => board.id === tbid);
+
+    const tempBoards = [...boards];
+    const tempCard = tempBoards[bidx].cards[cidx];
+
+    tempBoards[bidx].cards.splice(cidx, 1);
+    tempBoards[tbidx].cards.push(tempCard);
+    setBoards(tempBoards);
+  }
+
+  const addSubtask = (bid, cid, inputTitle, inputDesc) => {
+    let bidx = boards.findIndex(board => board.id === bid);
+    let cidx = boards[bidx].cards.findIndex(card => card.id === cid);
+
+    const subtask = {
+      id: uuid(),
+      title: inputTitle,
+      desc: inputDesc,
+    }
+
+    const tempBoards = [...boards];
+    tempBoards[bidx].cards[cidx].subtasks.push(subtask);
+    setBoards(tempBoards);
+  }
+
+  const updateSubtask = (bid, cid, sid, inputTitle, inputDesc) => {
+    let bidx = boards.findIndex(board => board.id === bid);
+    let cidx = boards[bidx].cards.findIndex(card => card.id === cid);
+    let sidx = boards[bidx].cards[cidx].subtasks.findIndex(subtask => subtask.id === sid);
+
+    const tempBoards = [...boards];
+    const tempSubtask = tempBoards[bidx].cards[cidx].subtasks[sidx];
+    tempSubtask.title = inputTitle;
+    tempSubtask.desc = inputDesc;
+    tempBoards[bidx].cards[cidx].subtasks.splice(sidx, 1, tempSubtask);
+    setBoards(tempBoards);
+  }
+
+  const deleteSubtask = (bid, cid, sid) => {
+    let bidx = boards.findIndex(board => board.id === bid);
+    let cidx = boards[bidx].cards.findIndex(card => card.id === cid);
+    let sidx = boards[bidx].cards[cidx].subtasks.findIndex(subtask => subtask.id === sid);
+
+    const tempBoards = [...boards];
+    tempBoards[bidx].cards[cidx].subtasks.splice(sidx, 1);
+    setBoards(tempBoards);
+  }
+
   const addBoard = (title) => {
+    const id = uuid();
     setBoards([
       ...boards,
       {
-        id: uuid(),
+        id: id,
         title: title,
         hover: false,
         cards: []
+      }
+    ])
+    setBoardTitles([
+      ...boardTitles,
+      {
+        id: id,
+        title: title,
       }
     ])
   }
@@ -309,6 +166,55 @@ function Home() {
   const deleteBoard = (boardId) => {
     const tempBoards = boards.filter(board => board.id !== boardId);
     setBoards(tempBoards);
+    const tempBoardTitles = boardTitles.filter(board => board.id !== boardId);
+    setBoardTitles(tempBoardTitles);
+  }
+
+  const handleDragStart = (bid, cid) => {
+    setDraggedCard({
+      bid,
+      cid
+    })
+  }
+
+  const [draggedCard, setDraggedCard] = useState({
+    bid: '',
+    cid: ''
+  });
+
+  const [targetBoard, setTargetBoard] = useState({
+    bid: ''
+  });
+
+  const handleDragEnd = (bid, cid) => {
+    let bidx = boards.findIndex(board => board.id === bid);
+    let cidx = boards[bidx].cards.findIndex(card => card.id === cid);
+
+    let tbidx = boards.findIndex(board => board.id === targetBoard);
+
+    // console.log(bidx, cidx, tbidx);
+    if (bidx === tbidx) return;
+
+    const tempBoards = [...boards];
+    const tempCard = tempBoards[bidx].cards[cidx];
+
+    tempBoards[bidx].cards.splice(cidx, 1);
+    tempBoards[tbidx].cards.push(tempCard);
+    setBoards(tempBoards);
+    // boards[bidx].hover = false;
+  }
+
+  const handleDragOver = (bid) => {
+    setTargetBoard(bid);
+    let bidx = boards.findIndex(board => board.id === bid);
+    if (bid !== draggedCard.bid) boards[bidx].hover = true;
+  }
+
+  const handleDragLeave = (bid) => {
+    setTargetBoard(bid);
+    let bidx = boards.findIndex(board => board.id === bid);
+    boards[bidx].hover = false;
+    // console.log(targetBoard);
   }
 
   return (
@@ -319,30 +225,42 @@ function Home() {
           <h2>Todo Board</h2>
         </div>
         <div className="home-boards">
-          <DragDropContext
+          {/* <DragDropContext
             onDragEnd={onDragEnd}
-          >
-            <div className="boards">
-              {
-                boards.map((board) => (
-                  <Board
-                    key={board.id}
-                    board={board}
+          > */}
+          <div className="boards">
+            {
+              boards.map((board) => (
+                <Board
+                  key={board.id}
+                  board={board}
+                  boardTitles={boardTitles}
 
-                    addCard={addCard}
-                    editCardTitle={editCardTitle}
-                    updateCardDesc={updateCardDesc}
-                    deleteCard={deleteCard}
-                    deleteBoard={deleteBoard}
-                  />
-                ))
-              }
-              <Addboard
-                placeholder='Enter Board Title'
-                onSubmit={(value) => addBoard(value)}
-              ></Addboard>
-            </div>
-          </DragDropContext>
+                  addCard={addCard}
+                  editCardTitle={editCardTitle}
+                  updateCardDesc={updateCardDesc}
+                  deleteCard={deleteCard}
+                  deleteBoard={deleteBoard}
+                  changeStatus={changeStatus}
+
+                  addSubtask={addSubtask}
+                  updateSubtask={updateSubtask}
+                  deleteSubtask={deleteSubtask}
+
+                  handleDragStart={handleDragStart}
+                  handleDragEnd={handleDragEnd}
+                  handleDragOver={handleDragOver}
+                  handleDragLeave={handleDragLeave}
+
+                />
+              ))
+            }
+            <Addboard
+              placeholder='Enter Board Title'
+              onSubmit={(value) => addBoard(value)}
+            ></Addboard>
+          </div>
+          {/* </DragDropContext> */}
         </div>
         {/* {console.log(boards)} */}
       </div>

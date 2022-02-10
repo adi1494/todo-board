@@ -1,11 +1,14 @@
 describe('test 4', function () {
-  beforeEach(() => {
+  before(() => {
     cy.visit('http://localhost:3000/home');
   });
   it('adds and deletes boards', function () {
-
     addBoard('New Board'); // pass board name
+  })
+  it('add board', function () {
     addBoard('Another New Board');
+  })
+  it('delete board', function () {
     delBoard('Blocked');
   })
 })
