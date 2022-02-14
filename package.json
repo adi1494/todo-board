@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "cypress": "^9.3.1",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
@@ -42,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@4tw/cypress-drag-drop": "^2.1.0"
+    "@4tw/cypress-drag-drop": "^2.1.0",
+    "cypress": "^9.4.1"
   }
 }

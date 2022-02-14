@@ -13,7 +13,7 @@ import { userData, boardData } from './data'
 function Home() {
   const [users, setUsers] = useState(userData);
 
-  const [boards, setBoards] = useState(boardData);
+  const [boards, setBoards] = useState(JSON.parse(localStorage.getItem('boards')) || boardData);
 
   // const titles = boards.map(board => board.title)
   const titles = boards.map((board) => (
